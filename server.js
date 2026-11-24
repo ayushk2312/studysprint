@@ -52,7 +52,8 @@ function fallbackPlan({ syllabus, examDate, minutesPerDay }) {
   const sessions = Array.from({ length: sessionCount }, (_, i) => {
     const date = new Date(today); date.setDate(today.getDate() + Math.ceil((i + 1) * days / (sessionCount + 1)));
     const topic = topics[i % topics.length];
-    return { day: date.toISOString().slice(0, 10), focus: topic, minutes: minutesPerDay, tasks: [`Review the core ideas in ${topic}.`, `Write a short summary from memory.`, 'Finish with a 5-minute self-check.'] };
+    const day = `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+    return { day, focus: topic, minutes: minutesPerDay, tasks: [`Review the core ideas in ${topic}.`, `Write a short summary from memory.`, 'Finish with a 5-minute self-check.'] };
   });
   const quiz = topics.slice(0, 5).map((topic, i) => ({ question: `Which topic should you review from your syllabus?`, options: [topic, topics[(i + 1) % topics.length], 'A topic not listed in your syllabus', 'None of these'], answer: 0, explanation: `${topic} is included in the syllabus you provided.` }));
   return { title: 'Your focused study plan', summary: `${topics.length} syllabus topics organized into ${sessionCount} focused sessions.`, topics: topics.map((name, i) => ({ name, priority: i < Math.ceil(topics.length / 3) ? 'High' : i < Math.ceil(2 * topics.length / 3) ? 'Medium' : 'Low', minutes: minutesPerDay, why: 'Included in your syllabus; review it and check your recall.' })), sessions, quiz };

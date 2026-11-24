@@ -12,6 +12,14 @@ npm start
 
 Open [http://localhost:8080](http://localhost:8080).
 
+## Run tests
+
+The API tests use Node's built-in test runner and require no extra packages:
+
+```sh
+npm test
+```
+
 ## AI plans (optional)
 
 Without a key, the server uses a local topic-based planner, so the project works immediately. To enable Gemini generation, set `GEMINI_API_KEY` in the server environment. The key stays on the server and is never sent to the browser.
