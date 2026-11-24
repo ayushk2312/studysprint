@@ -32,6 +32,10 @@ gcloud run deploy studysprint --source . --region asia-south1 --allow-unauthenti
 
 To use AI on Cloud Run, set `GEMINI_API_KEY` as a service environment variable or use Secret Manager. Do not commit the key to GitHub.
 
+## Deploy to Vercel
+
+The repository also supports Vercel: the static site is served from the project root and `api/plan.js` provides the `/api/plan` function. Import the `studysprint` GitHub repository at [vercel.com/new](https://vercel.com/new), keep the root directory at `./`, choose **Other** as the framework preset, and leave the build command empty. Deploy the project to get a public URL. The app works without an AI key; to enable Gemini, add `GEMINI_API_KEY` under the Vercel project's Settings → Environment Variables, then redeploy. Never commit the key.
+
 ## Submission checklist
 
 - Push the project to a **public GitHub repository**.
