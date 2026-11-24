@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f6f7fb"><meta name="description" content="Turn your syllabus into a realistic study plan and a quick recall quiz.">
+  <title>StudySprint — make your next study session count</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="StudySprint home"><span class="brand-mark">s</span><span>study<span class="brand-accent">sprint</span></span></a>
+      <div class="workspace-label">YOUR WORKSPACE</div>
+      <nav class="nav-links">
+        <a class="nav-link active" href="#home"><span class="nav-icon">⌂</span> Overview</a>
+        <a class="nav-link" href="#planner"><span class="nav-icon">▤</span> Study planner</a>
+        <a class="nav-link" href="#quiz"><span class="nav-icon">✳</span> Quick quiz</a>
+      </nav>
+      <div class="sidebar-bottom"><div class="streak-card"><div class="streak-emoji">✦</div><div><strong>Small steps add up.</strong><span>One focused session at a time.</span></div></div><div class="profile"><div class="avatar">S</div><div><strong>My study space</strong><span>Personal workspace</span></div><span class="profile-dots">···</span></div></div>
+    </aside>
+
+    <main class="main-content" id="home">
+      <header class="topbar"><div class="breadcrumb">Workspace <span>/</span> <strong>Overview</strong></div><div class="top-actions"><span class="today-label" id="todayLabel"></span><button class="icon-button" id="resetButton" title="Start a new plan" aria-label="Start a new plan">↻</button><div class="mini-avatar">S</div></div></header>
+
+      <section class="welcome-row"><div><div class="eyebrow"><span class="spark">✦</span> YOUR PERSONAL STUDY COACH</div><h1>Make your next<br><span>study session count.</span></h1><p class="welcome-copy">Turn a big syllabus into a plan that feels doable. One step at a time.</p></div><div class="welcome-art" aria-hidden="true"><div class="art-sun"></div><div class="art-book">✎</div><div class="art-star star-one">✦</div><div class="art-star star-two">✧</div><div class="art-curve"></div></div></section>
+
+      <section class="stat-grid" aria-label="Study progress">
+        <article class="stat-card"><div class="stat-top"><span class="stat-icon lilac">▤</span><span class="stat-caption">YOUR PLAN</span></div><div class="stat-number" id="topicStat">—</div><div class="stat-foot">topics mapped out</div></article>
+        <article class="stat-card"><div class="stat-top"><span class="stat-icon mint">✓</span><span class="stat-caption">MOMENTUM</span></div><div class="stat-number"><span id="progressStat">0</span><small>%</small></div><div class="progress-line"><i id="progressBar"></i></div><div class="stat-foot">of sessions completed</div></article>
+        <article class="stat-card"><div class="stat-top"><span class="stat-icon peach">◷</span><span class="stat-caption">YOUR PACE</span></div><div class="stat-number" id="timeStat">—</div><div class="stat-foot">minutes per day</div></article>
+      </section>
+
+      <div class="section-heading" id="planner"><div><div class="eyebrow">LET'S GET STARTED</div><h2>Build your study plan</h2></div><span class="step-chip"><span>01</span> Plan it</span></div>
+      <section class="builder-card">
+        <div class="builder-intro"><div class="builder-icon">✦</div><div><h3>Start with what you need to learn</h3><p>Paste your syllabus or list a few topics. We’ll make a clear plan and a quick knowledge check.</p></div></div>
+        <form id="planForm">
+          <label for="syllabus">YOUR SYLLABUS <span class="label-hint">Paste text or add topics separated by commas</span></label>
+          <div class="textarea-wrap"><textarea id="syllabus" name="syllabus" maxlength="12000" placeholder="For example: Cell structure and function&#10;Photosynthesis and cellular respiration&#10;Genetics: DNA, genes, and inheritance" required minlength="12"></textarea><span class="char-count"><span id="charCount">0</span> / 12,000</span></div>
+          <button type="button" class="sample-link" id="sampleButton">✧ Try a sample syllabus</button>
+          <div class="form-row"><div class="field"><label for="examDate">EXAM DATE</label><div class="input-wrap"><span>▦</span><input id="examDate" type="date" required></div></div><div class="field"><label for="minutesPerDay">STUDY TIME PER DAY</label><div class="input-wrap"><span>◷</span><select id="minutesPerDay"><option value="30">30 minutes</option><option value="45">45 minutes</option><option value="60" selected>1 hour</option><option value="90">1.5 hours</option><option value="120">2 hours</option></select><span class="select-arrow">⌄</span></div></div></div>
+          <div class="form-bottom"><span class="privacy-note"><span>♧</span> Saved here; optional Gemini mode sends text to Google.</span><button class="primary-button" id="generateButton" type="submit"><span>Make my study plan</span><span class="button-arrow">↗</span></button></div>
+          <p class="form-error" id="formError" role="alert" hidden></p>
+        </form>
+      </section>
+
+      <section class="results-section" id="results" hidden>
+        <div class="section-heading results-heading"><div><div class="eyebrow">YOUR GAME PLAN <span class="ai-badge" id="sourceBadge">✦ SMART PLAN</span></div><h2 id="planTitle">Your study plan</h2><p id="planSummary" class="result-summary"></p></div><button class="secondary-button" id="copyButton">Copy plan <span>↗</span></button></div>
+        <div class="results-grid"><div class="result-panel sessions-panel"><div class="panel-heading"><div><span class="panel-icon mint">▤</span><div><h3>Study sessions</h3><p>Keep it focused, keep it doable.</p></div></div><span class="count-pill" id="sessionCount">0 sessions</span></div><div class="session-list" id="sessionList"></div><div class="completion-footer"><div class="completion-ring" id="completionRing"><span id="ringNumber">0%</span></div><div><strong>You're building momentum</strong><span>Check off a session when you finish it.</span></div></div></div>
+          <div class="result-panel topics-panel"><div class="panel-heading"><div><span class="panel-icon lilac">✳</span><div><h3>Topics to cover</h3><p>Your syllabus, broken into pieces.</p></div></div></div><div class="topic-list" id="topicList"></div><div class="topic-note"><span>✦</span><p>Try explaining each topic in your own words before moving on.</p></div></div></div>
+        <div class="quiz-card" id="quiz"><div class="quiz-header"><div class="quiz-symbol">✦</div><div><div class="eyebrow">A QUICK CHECK-IN</div><h3>Ready for a mini quiz?</h3><p>A few questions to help it stick. No pressure, just practice.</p></div><button class="primary-button quiz-start" id="startQuiz">Take the quiz <span class="button-arrow">↗</span></button></div><div id="quizContent" class="quiz-content" hidden></div></div>
+      </section>
+      <footer class="footer"><span>Made for steady progress <span class="footer-heart">♥</span></span><span>StudySprint <span class="footer-dot">·</span> Learn at your own pace</span></footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="/app.js" defer></script>
+</body>
+</html>

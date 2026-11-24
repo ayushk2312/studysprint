@@ -1,0 +1,8 @@
+{
+  "name": "studysprint",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A focused study planner that turns a syllabus into a realistic study plan and quick quiz.",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=20" }
+}
